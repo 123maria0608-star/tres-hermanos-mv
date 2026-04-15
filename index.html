@@ -499,8 +499,18 @@ They have tables to fit at least 40 people."</p>
         box-shadow:0 4px 16px rgba(255,48,8,0.3);
         transition:transform 0.2s;
       " onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform='none'">
-        <img src="https://www.doordash.com/favicon.ico" width="22" height="22" style="border-radius:4px;" onerror="this.style.display='none'">
-        Order on DoorDash
+        🚗 DoorDash
+      </a>
+      <a href="https://www.grubhub.com/restaurant/taqueria-3-hermanos-327-moffett-boulevard-mountain-view/1656550" target="_blank" style="
+        display:flex; align-items:center; gap:0.8rem;
+        background:#f63440; color:white;
+        padding:1rem 2rem; border-radius:12px;
+        text-decoration:none; font-weight:700; font-size:1.05rem;
+        font-family:Inter,sans-serif;
+        box-shadow:0 4px 16px rgba(246,52,64,0.3);
+        transition:transform 0.2s;
+      " onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform='none'">
+        🛵 Grubhub
       </a>
       <a href="https://www.clover.com/online-ordering/tres-hermanos-taqueria--mountain-view" target="_blank" style="
         display:flex; align-items:center; gap:0.8rem;
@@ -514,7 +524,7 @@ They have tables to fit at least 40 people."</p>
         🍽️ Order Direct (No Fees)
       </a>
     </div>
-    <p style="margin-top:1.5rem; color:#999; font-size:0.85rem;">Ordering direct saves the restaurant on delivery fees!</p>
+    <p style="margin-top:1.5rem; color:#999; font-size:0.85rem;">💚 Ordering direct saves the restaurant on delivery fees!</p>
   </div>
 </section>
 
@@ -587,6 +597,52 @@ They have tables to fit at least 40 people."</p>
   </div>
 </div>
 
+
+<!-- RESERVATION SECTION -->
+<section id="reserve" style="background:#f9f6f0;padding:4rem 2rem;text-align:center;">
+  <div style="max-width:700px;margin:0 auto;">
+    <p style="font-size:.8rem;letter-spacing:3px;text-transform:uppercase;color:#8b1a1a;font-weight:600;margin-bottom:.5rem;">RESERVATIONS</p>
+    <h2 style="font-size:2rem;color:#1a1a1a;margin-bottom:.5rem;">Reserve Your Table</h2>
+    <div style="width:50px;height:3px;background:#c0392b;margin:.75rem auto 1.5rem;border-radius:2px;"></div>
+    <p style="color:#666;max-width:480px;margin:0 auto 2rem;line-height:1.7;">Book a table online &mdash; we&rsquo;ll confirm your reservation by phone.</p>
+    <button onclick="document.getElementById('apptModal').style.display='flex'" style="background:#c0392b;color:white;border:none;padding:1rem 2.5rem;border-radius:50px;font-size:1.05rem;font-weight:600;cursor:pointer;box-shadow:0 4px 18px rgba(0,0,0,.18);">&#x1F37D; Reserve Now</button>
+  </div>
+</section>
+<!-- RESERVATION MODAL -->
+<div id="apptModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:9999;align-items:center;justify-content:center;">
+  <div style="background:white;border-radius:16px;padding:2rem;max-width:480px;width:90%;position:relative;max-height:90vh;overflow-y:auto;">
+    <button onclick="document.getElementById('apptModal').style.display='none'" style="position:absolute;top:.8rem;right:1rem;background:none;border:none;font-size:1.5rem;cursor:pointer;color:#999;">&times;</button>
+    <h3 style="font-size:1.4rem;margin-bottom:.25rem;color:#8b1a1a;">&#x1F37D; Reserve a Table</h3>
+    <p style="color:#888;font-size:.88rem;margin-bottom:1.2rem;">We&rsquo;ll confirm your reservation within a few hours.</p>
+    <form id="apptForm" style="display:flex;flex-direction:column;gap:.65rem;">
+      <input type="hidden" name="business" value="Tres Hermanos">
+      <input type="text" name="name" placeholder="Full name" required style="padding:.75rem;border:1px solid #ddd;border-radius:8px;font-size:.95rem;">
+      <input type="tel" name="phone" placeholder="Phone number" required style="padding:.75rem;border:1px solid #ddd;border-radius:8px;font-size:.95rem;">
+      <input type="email" name="email" placeholder="Email (optional)" style="padding:.75rem;border:1px solid #ddd;border-radius:8px;font-size:.95rem;">
+      <select name="party_size" required style="padding:.75rem;border:1px solid #ddd;border-radius:8px;font-size:.95rem;background:white;color:#444;">
+        <option value="">Party size&hellip;</option>
+        <option value="1">1 person</option>
+        <option value="2">2 people</option>
+        <option value="3">3 people</option>
+        <option value="4">4 people</option>
+        <option value="5-6">5&ndash;6 people</option>
+        <option value="7-10">7&ndash;10 people</option>
+        <option value="10+">10+ (large party)</option>
+      </select>
+      <input type="date" name="date" required style="padding:.75rem;border:1px solid #ddd;border-radius:8px;font-size:.95rem;">
+      <input type="text" name="time" placeholder="Preferred time (e.g. 7:00 PM)" style="padding:.75rem;border:1px solid #ddd;border-radius:8px;font-size:.95rem;">
+      <textarea name="notes" placeholder="Special requests, dietary needs, occasion&hellip;" rows="3" style="padding:.75rem;border:1px solid #ddd;border-radius:8px;font-size:.95rem;resize:vertical;"></textarea>
+      <button type="submit" id="apptBtn" style="background:#c0392b;color:white;border:none;padding:.9rem;border-radius:8px;font-size:1rem;font-weight:600;cursor:pointer;">Request Reservation</button>
+      <div id="apptStatus"></div>
+    </form>
+  </div>
+</div>
+<script>
+document.getElementById('apptModal').addEventListener('click',function(e){if(e.target===this)this.style.display='none';});
+var inp=document.querySelector('#apptForm input[type="date"]');
+if(inp) inp.min=new Date().toISOString().split('T')[0];
+</script>
+
 <footer>
   <strong>Tres hermanos taqueria & pupuseria</strong> · 327 Moffett Blvd # D, Mountain View, CA 94043, USA · <a href="tel:(650) 967-2105" style="color:#aaa">(650) 967-2105</a><br>
   <span style="font-size:0.8rem; opacity:0.6; margin-top:0.5rem; display:block;">© 2025 Tres hermanos taqueria & pupuseria · Mountain View, CA</span>
@@ -598,6 +654,37 @@ function closeModal(id) { document.getElementById(id).classList.remove('open'); 
 document.querySelectorAll('.modal').forEach(m => m.addEventListener('click', function(e) {
   if (e.target === this) this.classList.remove('open');
 }));
+</script>
+
+<script>
+(function(){
+  var ENDPOINT="https://script.google.com/macros/s/AKfycbwVi4zAxvgW8Ai238E0BhjjS5noqbpyZjYz07bdZlAXeMDOHlQyCth_ILk8M7y9FXLy/exec";
+  var form=document.getElementById('apptForm');
+  if(!form) return;
+  form.addEventListener('submit',async function(e){
+    e.preventDefault();
+    var btn=document.getElementById('apptBtn');
+    var status=document.getElementById('apptStatus');
+    btn.disabled=true; btn.textContent='Sending…';
+    status.style.cssText='';
+    var payload={};
+    new FormData(this).forEach(function(v,k){ if(!k.startsWith('_')&&v) payload[k]=v; });
+    try{
+      var res=await fetch(ENDPOINT,{method:'POST',headers:{'Content-Type':'text/plain;charset=UTF-8'},body:JSON.stringify(payload)});
+      var json=await res.json();
+      if(json.status==='ok'){
+        status.style.cssText='display:block;background:#d4edda;color:#155724;padding:.8rem;border-radius:6px;margin-top:.8rem;font-size:.92rem;';
+        status.textContent='✓ Received! We\'ll confirm within a few hours.';
+        btn.textContent='Sent ✓';
+        form.reset();
+      }else throw new Error(json.message||'err');
+    }catch(err){
+      status.style.cssText='display:block;background:#f8d7da;color:#721c24;padding:.8rem;border-radius:6px;margin-top:.8rem;font-size:.92rem;';
+      status.textContent='Something went wrong — please call us directly.';
+      btn.disabled=false; btn.textContent='Try Again';
+    }
+  });
+})();
 </script>
 </body>
 </html>
